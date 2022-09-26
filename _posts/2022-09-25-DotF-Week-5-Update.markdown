@@ -5,7 +5,7 @@ date:	2022-09-25 20:29:00 -0400
 categories: GameDev DotF
 ---
 
-![Game Screenshot][/assets/dotf_screenshot_01.png]
+![Game Screenshot](/assets/dotf_screenshot_01.png)
 
 35 days ago I began work on this project, Death of the Forefathers, as a submission to the 2022.2 Brackeys "You are not alone" GameJam.
 As stated in the first post on this Devblog series, we were unable to submit an entry due to not having a complete product. 
