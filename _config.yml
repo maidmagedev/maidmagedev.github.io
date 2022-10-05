@@ -21,8 +21,7 @@
 title: maidmagedevblog
 email: Spencer.Pham@unh.edu
 description: >- # this means to ignore newlines until "baseurl:"
-  This site is a personal blog dedicated to showcasing my creative endeavors.
-  Follow to read updates on Game Development, Art, Music, and anything else I might be up to.
+  Game Dev, Art, Music.
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: maidmage
