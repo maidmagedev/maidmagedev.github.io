@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://unpkg.com/jquery.terminal/js/jquery.terminal.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/jquery.terminal/css/jquery.terminal.min.css" />
+</head>
+<body>
+    <script>
+        $('body').terminal({
+
+            hello: function (what) {
+                this.echo('Hello, ' + what +
+                    '. Welcome to this terminal.');
+            },
+            test: function (stuff) {
+                this.echo(stuff);
+            },
+            help: function () {
+                this.echo("/////////////////////////////////////////////////////////////////////////////////////////");
+                this.echo("You can always type 'help [command]' in order to get more details on usage. Ex: 'help add'");
+                this.echo("Here's a list of system commands, listed in order of importance.");
+                this.echo(" - 'help': displays a list of all available commands, a.k.a expected inputs");
+                this.echo(" - 'commands': displays a list of all available commands, a.k.a expected inputs");
+                this.echo(" - 'end': stops the program from running.");
+                this.echo(" - 'info': displays the start-up welcome message.");
+                this.echo();
+                this.echo("Here's a list of commands regarding the Chord Generator, sorted alphabetically.");
+                this.echo(" - 'add [chord]': add additional chords to the list.");
+                this.echo(" - 'chords': view all current chords to be generated.");
+                this.echo(" - 'generate': prints all currently selected chords given the current criteria.");
+                this.echo(" - 'key': view the current key.");
+                this.echo(" - 'newKey [key]': change the current key.");
+                this.echo(" - 'remove [chord]': removes a chord from the list.");
+                this.echo(" - 'reset': returns all settings back to defaults.");
+                this.echo(" - 'settings': view or change all current Generator settings.");
+                this.echo(" - 'tuning': view or change current string tuning");
+                this.echo("/////////////////////////////////////////////////////////////////////////////////////////");
+            },
+            help: function (command) {
+                if (command == undefined) {
+                    command = "not important";
+                    this.echo("default stuff");
+                } else { 
+                    if (command.localeCompare("add") == 0) {
+                        this.echo("is equal");
+                    } else {
+                        this.echo("Not equal");
+                    }
+                }
+            },
+            double: function (thing) {
+                this.echo(thing * 2);
+            }
+        }, {
+            greetings: 'My First Web Terminal'
+        });
+    </script>
+</body>
+</html>
