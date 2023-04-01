@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blogs</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Ubuntu+Mono&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="navbar">
+        <ul>
+            <li><a href ="../index.html">| blog |</a></li>
+            <li><a href ="../about.html">| about |</a></li>
+            <li><a href ="../contact.html">| socials / contact |</a></li>
+        </ul>
+    </div>
+    <div class="page_bg"></div>
+
+    <div class="page">
+        &nbsp;
+        <div class="blackopac">
+            <h1>/maidmagedev/blog/</h1>
+        </div>
+        <br/>
+        <div class="blackopac2">
+            <h1 style="margin-bottom: 0;">AENB - Level Design: A Retrospective</h1>
+            <p style="text-align:center;">published 4/01/2023</p>
+        </div>
+        <br/>
+        <div class="blackopac2">
+            <img src="/images/headers/hdr_aenb_labwip.png" class="blog_headerimg">
+            <p class="img_caption">a screenshot from the currently in development lab environment</p>
+            <br/>
+            <div class="blog_content">
+                <p>  
+                    One of the biggest issues regarding AENB's initial release was 
+                    the very empty and hard to navigate environment. Realizing this now, 
+                    level design has always been a lacking part of every game jam
+                    that I've worked on. Levels almost always get pushed to the 
+                    final days if not final hours of our projects. I think this has 
+                    caused a lot of our games to suffer, and it's definitely something
+                    that I'm personally going to target in any upcoming jams.
+                </p>
+                <p>
+                    For this upcoming update, renovating the level environment has become 
+                    one of the key content focuses, with the rest of development focusing on
+                    bug fixing or back-end aspects. 
+                </p>
+                <p><h2>So What Went Wrong with V1.0's Map?</h2></p>
+                <p> 
+                    The main complaints we ended up getting were:
+                    <ul>
+                        <li>It's hard to navigate.</li>
+                        <li>I can't find enough resources.</lI>
+                        <li>The Map Feels Too Empty.</li>
+                    </ul>
+                </p>
+                <p>
+                    Lets discuss each issue one at a time, and how I'm working 
+                    to remedy them.
+                </p>
+                <p><h2>Navigation is difficult.</h2></p>
+
+                <p>
+                    One of the first ideas was to create monuments, landmarks of some kind. 
+                    These would hopefully make navigation easier, since the map was extremely plain, 
+                    and everything looked intensely similar. But I then realized that the camera 
+                    didn't have enough screenspace to fit in any new elements. So I pulled the camera back,
+                    gave the player more visual information, and with that change along navigation 
+                    was already way better. That doesn't mean the map didn't need changes, but it also 
+                    shows that these are multi-faceted issues.
+                </p>
+                <img src="/images/screenshots/aenb_minimap_01.png" class="blog_img">
+                <p class="img_caption">A screenshot of the currently in development minimap radar.</p>
+
+
+                <p>
+                    So while being able to see more at once is already a step towards improving navigation,
+                    there are much more things at play. Making the level design more distinct in memorable is important as well, 
+                    but both of these things don't matter if you haven't memorized where you are yet. You can see things, 
+                    and you know that places are different than other places, but you likely won't have a sense for how 
+                    they all relate to each other. So the easiest solution is creating a map. 
+                    In the new version of the game, there is now a minimap that appears in the corner of the screen.
+                </p>
+                <p>
+                    There's a pretty good chance that a fullscreen map will also be created, but its not 
+                    the highest priority as of the moment. I do think it would be valuable however,
+                    and its definitely worth addressing for this upcoming release or a mini-release afterwards.
+                </p>
+
+                <p><h2>I can't find enough resources.</h2></p>
+                <p>
+                    Resources were initially thrown all over the place, into 
+                    seemingly random spots. They were placed in clusters and along pathways,
+                    but if you didn't follow every footstep trail it was extremely unlikely 
+                    that you would find anything.
+                </p>
+                <img src="/images/screenshots/aenb_rocketui.png" class="blog_img">
+                <p class="img_caption">The UI menu upon interacting with the escape rocket.</p>
+
+
+                <p>
+                    In order to beat the game, you needed to acquire 50 iron & gold bars, 50 coal, and a singular quest item 
+                    hidden somewhere in the map. The quest item is definitely a missed mark itself, but that will be 
+                    addressed in the addition of quests.
+                </p>
+                <img src="/images/screenshots/aenb_resources2.png" class="blog_img">
+                <p class="img_caption">A screenshot featuring gold, iron, coal, and stone deposits.</p>
+
+                <p>
+                    Available on the map were 7 Gold Nodes, 14 Iron Nodes, 25 Coal Nodes, and 53 Stone Deposits.
+                    Gold and Iron nodes both dropped a singular ore, coal would drop in stacks of 10, and stone in stacks of 10 aswell.
+                    Gold and Iron would also need to be smelted into bars,  
+                </p>
+                <p>
+                    Ignoring all the other items, beating the game needs 50 iron bars, gold bars, and coal. There were not nearly enough of those resources available 
+                    immediately on the map. In order to beat the game, you would need to get a mining unit operation going, and from that point 
+                    you would have infinite iron, gold, and coal. New players however wouldn't know this, 
+                    and you also had to set up the machines in a very specific, unintuitive way. 
+                    None of this was explicitly told to the player in a clear and easily graspable way.
+                    I myself didn't know how the machine system worked, and for that first morning of release I assumed the 
+                    system broke during compiling, since I had placed the right machines- but I had placed them on
+                    the right side instead of the left side of the mining unit, and didn't know the grabber (a transport machine)
+                    needed to be rotated in order to go on that side- I had assumed it was omnidirectional. Lot of QOL stuff
+                    that can be fixed up with that system, but that really isn't the focus of this post.
+                </p>
+
+                <img src="/images/screenshots/aenb_resources.png" class="blog_img">
+                <p class="img_caption">A zoomed out screenshot of the entire map.</p>
+
+
+                <p>
+                    Take a look at this image above. Each tiny yellow square represents 
+                    some kind of resource. There are a lot of resource deposits which have no 
+                    pathway leading towards them, with just a plain, pink void.
+                    There is absolutely nothing guiding the player towards these clusters.
+                    They would have to walk around aimlessly in order to find them.
+                </p>
+                <p>
+                    So one of the key goals for the map update is to place more resources around. The minimap 
+                    highlights whenever there's any resource in your vicinity, so that should help finding them a whole 
+                    lot clearer. Additionally, I plan on adding some caves, mountains, and a quarry into the final map. 
+                    These distinct areas should help finding resources a lot easier.
+                </p>
+
+                <p> 
+                    And one last thing regarding these resources, the drop rates were just too low from each node.
+                    We'll be doing some balance tweaking to how that works, on top of other changes to the 
+                    overall item system that should shake things up.
+                </p>
+
+                <p><h2>The map feels too empty.</h2></p>
+                <p>
+                    A big issue with the initial release is that for a majority of the map, 
+                    there is absolutely nothing visible on your screen.
+                </p>
+                <img src="/images/screenshots/aenb_launch_map.png" class="blog_img">
+                <p class="img_caption">The zoomed out map, with red areas representing OUT OF BOUNDS, and blue representing empty areas.</p>
+                <p>
+                    I edited this visual of the game map. As the caption states, the red sections are 
+                    out of bounds. A giant invisible barrier blocks you from reaching those areas. The blue sections
+                    represent empty space. Parts of the map where the background is largely just blank, pink tile.
+                </p>
+                <p>
+                    So the map needs to get populated with a lot more stuff. But that stuff can't just be more 
+                    of the same tree sprites and other dead shrubbery that currently exists.
+                    I need to create visually distinct areas, each with a unique thematic.
+                </p>
+                <p>
+                    So the first step in doing that is creating designs for the new regions as a whole,
+                    rather than the little tiny assets that will populate them first. I took that latter approach to 
+                    design the initial environment, and I just kind of assumed it would all come alive in-game. 
+                    This time, I'm taking a mock-up first approach. Here's a sneak peak at the upcoming Lab Environment:
+                </p>
+
+                <img src="/images/screenshots/aenb_lab_mockup.png" class="blog_img">
+                <p class="img_caption">a mockup of the in development lab environment</p>
+                
+                <p>
+                    These lab sections will have a much larger role to play once I add in 
+                    the game's quest journal, along with other features. For now, it's just a pretty 
+                    backdrop which I get to test new enemies inside of.
+                </p>
+                <p>
+                    But that's pretty much as much as I can show for now! I'll share more as 
+                    things develop.
+                </p>
+
+            </div>            
+        </div>
+        
+        
+    </div>
+
+</body>
+</html>
