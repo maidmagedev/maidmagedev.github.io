@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CS 518 Project Demo</title>
+    <script src="../scripts/discover.js"></script>
+    <link rel="stylesheet" href="../css/discover.css">
+    <!-- External Font Awesome Packages script gives us custom classes which provide the symbols for the buttons. -->
+    <script src="https://kit.fontawesome.com/0bade4009c.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <h1>CS518 webapp demo</h1>
+    <h1 style="font-size:small">your discover weekly, but for us with ADHD.</h1><br/>
+
+    <!-- This is empty div is filled by javascript code! -->
+    <div class="songart art" data-index="0" data-status="active" id="album-art">
+        <!-- <img src="/images/sampleart/a2858185520_10.jpg"> -->
+
+    </div>
+
+    <div id="songInfo">
+        #song_title - #artist_name
+    </div>
+    <div class="test" id="playlist_buttons"> 
+        <!-- Using Font Awesome classes for symbols, but we can also use text symbols for hate: &#x2716; or for like: &#x2764; -->
+        <button id="hate" onclick="hateButton()"> 
+            <i class="fa-solid fa-x"></i>
+        </button> 
+        <button id="pausePlay" onclick="pausePlayHandler()">
+            <i class="fa-solid fa-pause" id="pausePlayIcon" data-status="mode-pause"></i>
+        </button>
+        <button id="like" onclick="likeButton()">
+            <i class="fa-solid fa-heart"></i>
+
+        </button>
+    </div>
+    <div class ="options_block">
+        <button class="fa-solid fa-link" id="options" onclick="externalLink()">
+        <!-- <button class="fa-solid fa-arrow-up-from-bracket" id="options" onclick="externalLink()"> -->
+        </button>
+    </div>
+    <div class="volume_block">
+        <button class="fa-solid fa-volume-high" id="volume" onclick="volumeHandler()" data-status="1"></button>
+    </div>
+    <div class="footer">
+        <p>
+            this site was made for UNH's CS 518 course in the Spring of 2023. <br/>
+            all music is provided by Spotify directly, and all rights belong to respective artists and publishers.
+        </p>
+        <!-- There's gotta be more proper legal speak for this. -->
+    </div>
+
+</body>
+</html>
