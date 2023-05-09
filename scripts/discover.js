@@ -2,6 +2,7 @@
 let songInfo = document.getElementById("songInfo");
 let songart = document.getElementById("album-art"); 
 let currentTrack;
+let currentGenre;
 let audio = new Audio();
 let lockout = false;
 
@@ -43,6 +44,7 @@ function likeButton() {
   songart.setAttribute("data-status", "after");
 
 
+  saveSong(currentTrack);
   // After a delay, call the setToActive() function, changing the position of the songart.
   //setTimeout(displayAlbumArt, 500);
   setTimeout(setToActive, 1000);
@@ -92,7 +94,41 @@ function pausePlayHandler() {
   }
 }
 
+function slideMenuHandler(id) {
+  let pullupMenu = document.getElementById('slide_menu');
 
+  pullupMenu.setAttribute("data-status", "open");
+  let menuMode = document.getElementById(id);
+  id.setAttribute("data-status", "visible");
+
+}
+
+function slideMenuClose() {
+  let pullupMenu = document.getElementById('slide_menu');
+
+  pullupMenu.setAttribute("data-status", "closed");
+  
+  let menuA = document.getElementById('songlist');
+  let menuB = document.getElementById('optionslist');
+  menuA.setAttribute("data-status", "hidden");
+  menuB.setAttribute("data-status", "hidden");
+  
+
+}
+
+
+// This saves songs to the menu list on our HTML. Not to the database or the user's library.
+function saveSong(track) {
+  let songList = document.getElementById('songlist');
+  var newListItem = document.createElement("div");
+  newListItem.classList.add("saved_song");
+  newListItem.innerHTML = `<a target="_blank" href="https://open.spotify.com/track/${track.track.id}">${track.track.name} by ${track.track.artists[0].name}</a>`;
+  songList.appendChild(newListItem);
+}
+
+function optionsMenuHandler() {
+
+}
 
 // SPOTIFY API STUFF BELOW
 // most of this stuff was done with chat gpt.
@@ -131,28 +167,33 @@ async function fetchRandomSong() {
   });
   
   // Gets a random genre from Spotify.
-  const genresData = await genresResponse.json();
-  const randomGenre = genresData.categories.items[Math.floor(Math.random() * genresData.categories.items.length)];
-
-  const playlistsResponse = await fetch(`https://api.spotify.com/v1/browse/categories/${randomGenre.id}/playlists`, {
+  let genresData = await genresResponse.json();
+  let randomGenre = genresData.categories.items[Math.floor(Math.random() * genresData.categories.items.length)];
+  if (currentGenre != null) {
+    console.log("Desired genre exists...");
+    randomGenre = currentGenre;
+  } else {
+    console.log("Current genre undefined, looking for a random genre.");
+  }
+  let playlistsResponse = await fetch(`https://api.spotify.com/v1/browse/categories/${randomGenre.id}/playlists`, {
     headers: {
       'Authorization': `Bearer ${token}`
     }
   });
 
   // When Spotify gives us a genre, it also gives us a giant list of playlists. We pull a random playlist from each genre.
-  const playlistsData = await playlistsResponse.json();
-  const randomPlaylist = playlistsData.playlists.items[Math.floor(Math.random() * playlistsData.playlists.items.length)];
+  let playlistsData = await playlistsResponse.json();
+  let randomPlaylist = playlistsData.playlists.items[Math.floor(Math.random() * playlistsData.playlists.items.length)];
 
-  const tracksResponse = await fetch(`https://api.spotify.com/v1/playlists/${randomPlaylist.id}/tracks`, {
+  let tracksResponse = await fetch(`https://api.spotify.com/v1/playlists/${randomPlaylist.id}/tracks`, {
     headers: {
       'Authorization': `Bearer ${token}`
     }
   });
 
   // Once we have a random playlist, we pull a random song from that playlist.
-  const tracksData = await tracksResponse.json();
-  const randomTrack = tracksData.items[Math.floor(Math.random() * tracksData.items.length)];
+  let tracksData = await tracksResponse.json();
+  let randomTrack = tracksData.items[Math.floor(Math.random() * tracksData.items.length)];
   
   // Somewhere along the line, a fetch request failed. This could be for a variety of reasons, including bad internet connection on our end,
   // a server issue on Spotify's end, etc. We'll try again.
@@ -237,9 +278,11 @@ document.addEventListener("DOMContentLoaded", function() {
       fetchRandomSong();
       return;
     }
-
+    var oldvolume = audio.volume;
     audio = new Audio(track.preview_url); // sets to the new song
     audio.play(); // starts the new track
+    audio.volume = oldvolume;
+
 
     /* Turns the main pause/play button to represent "pause", since music is currently playing. */
     let pausePlayIcon = document.getElementById('pausePlayIcon');
@@ -297,3 +340,62 @@ function externalLink() {
   // we use the _blank in order to open into a new tab.
   window.open(`https://open.spotify.com/track/${currentTrack.track.id}`, "_blank");
 }
+
+// GENRE SEARCH
+
+function debounce(func, delay) {
+  let timerId;
+  return function (...args) {
+    if (timerId) {
+      clearTimeout(timerId);
+    }
+    timerId = setTimeout(() => {
+      func.apply(this, args);
+    }, delay);
+  };
+}
+const debouncedSearchForGenre = debounce(searchForGenre, 500);
+
+window.addEventListener("DOMContentLoaded", function() {
+    var inputElement = document.getElementById("genreSearch");
+    inputElement.addEventListener("input", function() {
+      // This currentInput variable is the current status of the input field.
+      // We have an eventListener check for whenver the input is updated.
+      var currentInput = inputElement.value.toLowerCase();
+      console.log("input updated to value: ", currentInput);
+      debouncedSearchForGenre(currentInput);
+    });
+});
+
+async function searchForGenre(genreName) {
+  var searchStatusText = document.getElementById("searchStatus");
+  if (genreName.length === 0) {
+    searchStatusText.innerText = "waiting for user input...";
+    return null;
+  }
+
+  const token = await getAccessToken();
+
+  const playlistsResponse = await fetch(`https://api.spotify.com/v1/browse/categories/${genreName}/playlists`, {
+    headers: {
+      'Authorization': `Bearer ${token}`
+    }
+  });
+
+  searchStatusText.innerText = "waiting for response from Spotify...";
+
+  const playlistsData = await playlistsResponse.json();
+
+  if (!playlistsData.playlists || playlistsData.playlists.items.length === 0) {
+    searchStatusText.innerText = "unable to find desired genre. If it exists, try again or with a different spelling.";
+    return null;
+  }
+
+  const genre = {
+    id: genreName  };
+
+  searchStatusText.innerText = "successfully found genre. new song recommendations will only come from this genre.";
+
+  currentGenre = genre;
+}
+

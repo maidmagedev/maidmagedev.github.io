@@ -2,12 +2,18 @@
     --red: rgb(236, 92, 92);
     --green: rgb(122, 243, 122);
     --black: rgb(39, 39, 39);
+    --semi-glass: rgba(255, 255, 255, 0.808);
+    --dark-glass: rgba(59, 59, 59, 0.808);
+    --lime: rgb(196, 252, 42);
 }
 
 html {
     background-color: var(--black);
     color:aliceblue;
     font-family: monospace;
+    height: 100vh;
+    max-height: 100vh;
+    overflow:hidden;
 }
 
 h1 {
@@ -132,7 +138,7 @@ h1 {
     So that it's clear that this is just an unloaded image.
     Because currently its using an actual song you can find on spotify,
     as a placeholder icon. Which can be misleading. */
-    background-image: url(/images/sampleart/Mariya_Takeuchi_-_Plastic_Love_2021.jpg);
+    /* background-image: url(/images/sampleart/Mariya_Takeuchi_-_Plastic_Love_2021.jpg); */
 }
 
 /* This is the text underneath the songart image that displays "Song Name by Artist Name" */
@@ -153,7 +159,7 @@ a {
     color: white;
 }
 
-#volume, #options {
+.mini_button {
     background-color: transparent;
     border-color: white;
     border-width: 2.25px;
@@ -169,13 +175,13 @@ a {
     transition: all 120ms;
 }
 
-#volume:hover, #options:hover {
+.mini_button:hover {
     cursor:pointer;
     background-color: white;
     color: var(--black);
 }
 
-#volume:active, #options:active {
+.mini_button:active {
     height: 4vh;
     width:4vh;
 }
@@ -216,3 +222,99 @@ a {
     font-style:italic;
 }
 
+.pullup {
+    position:absolute;
+    justify-content: center;
+    margin: auto;
+    z-index: 10;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--semi-glass);
+    width: 60%;
+    height: 95%;
+    border-radius: 20px 20px 0 0;
+
+    transition: transform 650ms ease;
+}
+
+.pullup[data-status="closed"] {
+    transform:translateY(100%);
+}
+
+#close_pullup {
+    border-style: none;
+    background-color: var(--dark-glass);
+    font-size: xx-large;
+    position: inherit;
+    padding: 10px;
+    aspect-ratio: 1/1;
+    width: 5vh;
+    border-radius: 0 20px 0 0;
+    right: 0;
+    color: var(--lime);
+}
+
+#songlist[data-status="visible"] {
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    margin-top: 7vh;
+    width: 95%;
+    height: 85vh;
+    background-color: var(--black);
+    border-radius: 15px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    overflow-y: auto !important;
+}
+
+#songlist[data-status="hidden"] {
+    display: none;
+}
+
+.saved_song {
+    left:0;
+    right:0;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    top: 10px;
+    height: 4vh;
+    justify-content: center;
+    text-align: center;
+    width:95%;
+    background-color: rgb(0, 0, 0);
+    border-radius: 15px;
+    align-items: center;
+    display: flex;
+}
+.saved_song a {
+    color: var(--lime) !important;
+
+}
+
+#optionslist[data-status="visible"] {
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    margin-top: 7vh;
+    width: 95%;
+    height: 85vh;
+    background-color: var(--black) !important;
+    border-radius: 15px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    overflow-y: auto !important;
+}
