@@ -4,14 +4,14 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CS 518 Project Demo</title>
+    <title>quickPlay - Discover Songs</title>
     <script src="../scripts/discover.js"></script>
     <link rel="stylesheet" href="../css/discover.css">
     <!-- External Font Awesome Packages script gives us custom classes which provide the symbols for the buttons. -->
     <script src="https://kit.fontawesome.com/0bade4009c.js" crossorigin="anonymous"></script>
 </head>
 <body>
-    <h1>CS518 webapp demo</h1>
+    <h1>quickPlay</h1>
     <h1 style="font-size:small">your discover weekly, but for us with ADHD.</h1><br/>
 
     <!-- This is empty div is filled by javascript code! -->
@@ -37,13 +37,36 @@
         </button>
     </div>
     <div class ="options_block">
-        <button class="fa-solid fa-link" id="options" onclick="externalLink()">
-        <!-- <button class="fa-solid fa-arrow-up-from-bracket" id="options" onclick="externalLink()"> -->
+        <!-- <button class="fa-solid fa-link" id="options" onclick="externalLink()"> -->
+        
+        <button class="fa-solid fa-bars mini_button" id="songMenu" onclick="slideMenuHandler(songlist)">
+        </button>
+        <button class="fa-solid fa-wrench mini_button" id="options" onclick="slideMenuHandler(optionslist)">
         </button>
     </div>
+    
     <div class="volume_block">
-        <button class="fa-solid fa-volume-high" id="volume" onclick="volumeHandler()" data-status="1"></button>
+        
+        <button class="fa-solid fa-volume-high mini_button" id="volume" onclick="volumeHandler()" data-status="1"></button>
+        <button class="fa-solid fa-link mini_button" id="link" onclick="externalLink()"></button>
     </div>
+
+    <div class ="pullup" data-status="closed" id="slide_menu">
+        <button class="fa-solid fa-x" id="close_pullup" onclick="slideMenuClose()"></button>
+        <div id="songlist" data-status="hidden">
+            
+            
+        </div>
+        <div id="optionslist" data-status="hidden">
+            <br/>
+            <label for="genreSearch">Search by Genre</label>
+            <input type="text" id="genreSearch">
+            <!-- <button onclick="searchforGenre()">Start Search</button> -->
+            <div id ="searchStatus" data-status="waiting"> waiting for input... </div>
+        </div>
+    </div>
+
+
     <div class="footer">
         <p>
             this site was made for UNH's CS 518 course in the Spring of 2023. <br/>
